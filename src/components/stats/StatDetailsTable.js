@@ -22,6 +22,11 @@ const formatTime = (timeStr) => {
   if (!timeStr) return 'N/A';
   
   try {
+    // Handle "HH:MM" format (already grouped by hour)
+    if (timeStr.match(/^\d{2}:\d{2}$/)) {
+      return timeStr;
+    }
+    
     // Handle "HH:MM:SS.sssZ" format
     if (timeStr.includes('Z') && !timeStr.includes('T')) {
       const timePart = timeStr.split('Z')[0];
@@ -57,8 +62,8 @@ export default function StatDetailsTable({ details }) {
           <TableRow>
             <TableCell>Time</TableCell>
             <TableCell>Animal</TableCell>
-            <TableCell align="right">Images</TableCell>
-            <TableCell align="right">Tags</TableCell>
+            <TableCell align="right">Images (total)</TableCell>
+            <TableCell align="right">Tags (max)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
