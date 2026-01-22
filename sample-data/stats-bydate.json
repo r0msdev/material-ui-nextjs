@@ -1,0 +1,72 @@
+[
+    {
+        "ImageDate": "2025-12-22",
+        "NumImages": 34,
+        "StatType": "Date",
+        "TagName": "",
+        "StatDetails": [
+            {
+                "CreatedAt": "2025-12-21T23:31:12.0671125Z",
+                "ImageCount": 2,
+                "ImageDate": "00:30:31.300Z",
+                "ImageTag": "fox",
+                "MaxTags": 1,
+                "NumTags": 2,
+                "UpdatedAt": "2025-12-21T23:33:01.7019984Z"
+            },
+            {
+                "CreatedAt": "2025-12-22T18:14:47.663767Z",
+                "ImageCount": 3,
+                "ImageDate": "19:14:32.770Z",
+                "ImageTag": "wildboar",
+                "MaxTags": 2,
+                "NumTags": 4,
+                "UpdatedAt": "2025-12-22T18:14:53.4385496Z"
+            },
+            {
+                "CreatedAt": "2025-12-22T19:05:53.0354729Z",
+                "ImageCount": 1,
+                "ImageDate": "20:05:12.660Z",
+                "ImageTag": "fox",
+                "MaxTags": 1,
+                "NumTags": 1,
+                "UpdatedAt": "2025-12-22T19:05:53.0354729Z"
+            },
+            {
+                "CreatedAt": "2025-12-22T19:53:43.9869199Z",
+                "ImageCount": 9,
+                "ImageDate": "20:53:05.910Z",
+                "ImageTag": "wildboar",
+                "MaxTags": 2,
+                "NumTags": 13,
+                "UpdatedAt": "2025-12-22T19:57:14.433847Z"
+            }
+        ]
+    },
+    {
+        "ImageDate": "2025-12-23",
+        "NumImages": 19,
+        "StatType": "Date",
+        "TagName": "",
+        "StatDetails": [
+            {
+                "CreatedAt": "2025-12-23T00:14:14.2689262Z",
+                "ImageCount": 1,
+                "ImageDate": "01:13:37.710Z",
+                "ImageTag": "fox",
+                "MaxTags": 1,
+                "NumTags": 1,
+                "UpdatedAt": "2025-12-23T00:14:14.2689263Z"
+            },
+            {
+                "CreatedAt": "2025-12-23T02:23:28.1274539Z",
+                "ImageCount": 1,
+                "ImageDate": "03:22:42.810Z",
+                "ImageTag": "fox",
+                "MaxTags": 1,
+                "NumTags": 1,
+                "UpdatedAt": "2025-12-23T02:23:28.1274539Z"
+            }
+        ]
+    }
+]
