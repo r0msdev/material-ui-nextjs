@@ -67,7 +67,7 @@ export default function Home() {
           </Box>
         ) : (
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper 
                 elevation={3} 
                 sx={{ 
@@ -80,7 +80,7 @@ export default function Home() {
                 <LastSeenPanel data={lastSeenData} loading={false} />
               </Paper>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Paper 
                 elevation={3} 
                 sx={{ 

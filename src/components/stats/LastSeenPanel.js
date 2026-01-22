@@ -71,7 +71,7 @@ export default function LastSeenPanel({ data, loading }) {
           const animalColor = getAnimalColor(item.TagName);
           
           return (
-            <Grid item xs={12} sm={6} key={index}>
+            <Grid size={{ xs: 12, sm: 6 }} key={index}>
               <Card 
                 elevation={2}
                 sx={{ 
