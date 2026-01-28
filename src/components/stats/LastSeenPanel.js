@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { getAnimalColor } from '@/utils/animalColors';
-import { useClientLocale } from '@/hooks/useClientLocale';
+import { useTranslations } from '@/contexts/TranslationsContext';
 
 // Format date and time for display
 const formatDateTime = (dateTimeStr, locale) => {
@@ -34,12 +34,12 @@ const formatDateTime = (dateTimeStr, locale) => {
 };
 
 export default function LastSeenPanel({ data, loading }) {
-  const locale = useClientLocale();
+  const { t, locale } = useTranslations();
   if (loading || !locale) {
     return (
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          Loading last seen data...
+          {t('loading_last_seen')}
         </Typography>
       </Box>
     );
@@ -49,7 +49,7 @@ export default function LastSeenPanel({ data, loading }) {
     return (
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          No last seen data available
+          {t('no_last_seen_data')}
         </Typography>
       </Box>
     );
@@ -58,7 +58,7 @@ export default function LastSeenPanel({ data, loading }) {
   return (
     <Box>
       <Typography variant="h5" component="h2" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-        Last Seen
+        {t('last_seen')}
       </Typography>
       <Grid container spacing={2}>
         {data.map((item, index) => {

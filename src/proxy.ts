@@ -1,37 +1,32 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const supportedLocales = ['en', 'es', 'en-US', 'es-ES'];
+
 export function proxy(request: NextRequest) {
-  const response = NextResponse.next();
+  const { pathname } = request.nextUrl;
+  
+  // Only redirect from root path
+  if (pathname !== '/') {
+    return NextResponse.next();
+  }
   
   // Get locale from Accept-Language header
   const acceptLanguage = request.headers.get('accept-language');
-  
-  // Parse the Accept-Language header to get the primary locale
-  // Format: "es-ES,es;q=0.9,en;q=0.8" -> "es-ES"
-  let locale = 'en-US'; // Default fallback
+  let locale = 'en'; // Default fallback
   
   if (acceptLanguage) {
     // Extract the first locale (highest priority)
     const match = acceptLanguage.match(/^([a-z]{2}-[A-Z]{2}|[a-z]{2})/);
     if (match) {
-      locale = match[1];
+      const detectedLocale = match[1];
+      // Normalize es-ES to es, en-US to en for cleaner URLs
+      locale = detectedLocale.split('-')[0];
     }
   }
   
-  // Set locale cookie if it doesn't exist or is different
-  const existingLocale = request.cookies.get('NEXT_LOCALE')?.value;
-  
-  if (existingLocale !== locale) {
-    response.cookies.set('NEXT_LOCALE', locale, {
-      path: '/',
-      sameSite: 'lax',
-      // Cookie expires in 1 year
-      maxAge: 60 * 60 * 24 * 365,
-    });
-  }
-  
-  return response;
+  // Redirect root to locale-specific path
+  return NextResponse.redirect(new URL(`/${locale}`, request.url));
 }
 
 // Run middleware on all routes

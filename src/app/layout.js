@@ -3,7 +3,6 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
-import Navigation from '@/components/Navigation';
 
 export const metadata = {
   title: 'Wildlife Camera Statistics',
@@ -18,7 +17,7 @@ export default function RootLayout(props) {
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Navigation>{props.children}</Navigation>
+            {props.children}
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

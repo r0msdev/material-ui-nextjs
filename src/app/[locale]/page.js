@@ -9,8 +9,10 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import LastSeenPanel from '@/components/stats/LastSeenPanel';
 import DateStatsPanel from '@/components/stats/DateStatsPanel';
+import { useTranslations } from '@/contexts/TranslationsContext';
 
 export default function Home() {
+  const { t } = useTranslations();
   const [lastSeenData, setLastSeenData] = React.useState([]);
   const [byDateData, setByDateData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -52,7 +54,7 @@ export default function Home() {
     <Container maxWidth="xl">
       <Box sx={{ my: 4 }}>
         <Typography variant="h3" component="h1" gutterBottom sx={{ mb: 4, fontWeight: 'bold' }}>
-          Wildlife Camera Statistics
+          {t('wildlife_camera_statistics')}
         </Typography>
 
         {error && (

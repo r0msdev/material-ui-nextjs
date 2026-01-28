@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Chip from '@mui/material/Chip';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import StatDetailsTable from './StatDetailsTable';
-import { useClientLocale } from '@/hooks/useClientLocale';
+import { useTranslations } from '@/contexts/TranslationsContext';
 
 // Format date for display
 const formatDate = (dateStr, locale) => {
@@ -77,7 +77,7 @@ const groupByHourAndAnimal = (details) => {
 
 export default function DateStatsPanel({ data, loading }) {
   const [expanded, setExpanded] = React.useState(false);
-  const locale = useClientLocale();
+  const { t, locale } = useTranslations();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -87,7 +87,7 @@ export default function DateStatsPanel({ data, loading }) {
     return (
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          Loading statistics by date...
+          {t('loading_statistics')}
         </Typography>
       </Box>
     );
@@ -97,7 +97,7 @@ export default function DateStatsPanel({ data, loading }) {
     return (
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          No date statistics available
+          {t('no_statistics_data')}
         </Typography>
       </Box>
     );
@@ -106,7 +106,7 @@ export default function DateStatsPanel({ data, loading }) {
   return (
     <Box>
       <Typography variant="h5" component="h2" gutterBottom sx={{ mb: 2, fontWeight: 'bold' }}>
-        Statistics by Date
+        {t('statistics_by_date')}
       </Typography>
       {data.map((item, index) => {
         const groupedDetails = groupByHourAndAnimal(item.StatDetails);
@@ -132,7 +132,7 @@ export default function DateStatsPanel({ data, loading }) {
                   </Typography>
                 </Box>
                 <Chip
-                  label={`${item.NumImages} images`}
+                  label={`${item.NumImages} ${t('images')}`}
                   color="primary"
                   size="small"
                   sx={{ fontWeight: 'bold' }}
@@ -140,7 +140,7 @@ export default function DateStatsPanel({ data, loading }) {
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              <StatDetailsTable details={groupedDetails} locale={locale} />
+              <StatDetailsTable details={groupedDetails} />
             </AccordionDetails>
           </Accordion>
         );

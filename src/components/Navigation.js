@@ -1,5 +1,7 @@
 'use client';
 import * as React from 'react';
+import { usePathname } from 'next/navigation';
+import { useTranslations } from '@/contexts/TranslationsContext';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -14,21 +16,34 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import LanguageIcon from '@mui/icons-material/Language';
 import Link from 'next/link';
+import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
 
 export default function Navigation({ children }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const pathname = usePathname();
+  const { t } = useTranslations();
+  
+  // Extract locale from pathname (e.g., /es/about -> es)
+  const currentLocale = pathname.split('/')[1] || 'en';
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const menuItems = [
-    { text: 'Home', icon: <HomeIcon />, href: '/' },
-    { text: 'About', icon: <InfoIcon />, href: '/about' },
+    { text: t('home'), icon: <HomeIcon />, href: `/${currentLocale}` },
+    { text: t('about'), icon: <InfoIcon />, href: `/${currentLocale}/about` },
   ];
+  
+  const switchLocale = (newLocale) => {
+    // Get current path without locale
+    const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';
+    return `/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
+  };
 
   const drawer = (
     <Box>
@@ -66,9 +81,31 @@ export default function Navigation({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            My Application
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            {t('app_title')}
           </Typography>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Button
+              component={Link}
+              href={switchLocale('en')}
+              color="inherit"
+              size="small"
+              startIcon={<LanguageIcon />}
+              variant={currentLocale === 'en' || currentLocale === 'en-US' ? 'outlined' : 'text'}
+            >
+              EN
+            </Button>
+            <Button
+              component={Link}
+              href={switchLocale('es')}
+              color="inherit"
+              size="small"
+              startIcon={<LanguageIcon />}
+              variant={currentLocale === 'es' || currentLocale === 'es-ES' ? 'outlined' : 'text'}
+            >
+              ES
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer

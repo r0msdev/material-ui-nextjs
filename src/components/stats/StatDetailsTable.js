@@ -1,3 +1,4 @@
+'use client';
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,9 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import { getAnimalColor } from '@/utils/animalColors';
+import { useTranslations } from '@/contexts/TranslationsContext';
 
 // Format time from ISO string
-const formatTime = (timeStr, locale) => {
+const formatTime = (timeStr, locale = 'en-US') => {
   if (!timeStr) return 'N/A';
   
   try {
@@ -38,11 +40,13 @@ const formatTime = (timeStr, locale) => {
   }
 };
 
-export default function StatDetailsTable({ details, locale }) {
+export default function StatDetailsTable({ details }) {
+  const { t, locale } = useTranslations();
+  
   if (!details || details.length === 0) {
     return (
       <Paper sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
-        No details available
+        {t('no_details_available')}
       </Paper>
     );
   }
@@ -52,10 +56,10 @@ export default function StatDetailsTable({ details, locale }) {
       <Table size="small" aria-label="statistics details table">
         <TableHead>
           <TableRow>
-            <TableCell>Time</TableCell>
-            <TableCell>Animal</TableCell>
-            <TableCell align="right">Images (total)</TableCell>
-            <TableCell align="right">Tags (max)</TableCell>
+            <TableCell>{t('time')}</TableCell>
+            <TableCell>{t('animal')}</TableCell>
+            <TableCell align="right">{t('images_total')}</TableCell>
+            <TableCell align="right">{t('tags_max')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
