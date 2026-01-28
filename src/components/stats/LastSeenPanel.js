@@ -1,3 +1,4 @@
+'use client';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -6,29 +7,22 @@ import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-
-// Animal color mapping for visual distinction
-const getAnimalColor = (animal) => {
-  const colorMap = {
-    fox: '#ff6f00',
-    wildboar: '#795548',
-  };
-  return colorMap[animal?.toLowerCase()] || '#757575';
-};
+import { getAnimalColor } from '@/utils/animalColors';
+import { useClientLocale } from '@/hooks/useClientLocale';
 
 // Format date and time for display
-const formatDateTime = (dateTimeStr) => {
-  if (!dateTimeStr) return 'N/A';
+const formatDateTime = (dateTimeStr, locale) => {
+  if (!dateTimeStr) return { date: 'N/A', time: 'N/A' };
   
   try {
     const date = new Date(dateTimeStr);
     return {
-      date: date.toLocaleDateString('en-US', { 
+      date: date.toLocaleDateString(locale, { 
         month: 'short', 
         day: 'numeric', 
         year: 'numeric' 
       }),
-      time: date.toLocaleTimeString('en-US', { 
+      time: date.toLocaleTimeString(locale, { 
         hour: '2-digit', 
         minute: '2-digit',
         hour12: false 
@@ -40,7 +34,8 @@ const formatDateTime = (dateTimeStr) => {
 };
 
 export default function LastSeenPanel({ data, loading }) {
-  if (loading) {
+  const locale = useClientLocale();
+  if (loading || !locale) {
     return (
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
@@ -67,7 +62,7 @@ export default function LastSeenPanel({ data, loading }) {
       </Typography>
       <Grid container spacing={2}>
         {data.map((item, index) => {
-          const { date, time } = formatDateTime(item.ImageDate);
+          const { date, time } = formatDateTime(item.ImageDate, locale);
           const animalColor = getAnimalColor(item.TagName);
           
           return (

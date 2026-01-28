@@ -1,3 +1,4 @@
+'use client';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
@@ -8,14 +9,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Chip from '@mui/material/Chip';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import StatDetailsTable from './StatDetailsTable';
+import { useClientLocale } from '@/hooks/useClientLocale';
 
 // Format date for display
-const formatDate = (dateStr) => {
+const formatDate = (dateStr, locale) => {
   if (!dateStr) return 'N/A';
   
   try {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { 
+    return date.toLocaleDateString(locale, { 
       weekday: 'long',
       year: 'numeric', 
       month: 'long', 
@@ -75,12 +77,13 @@ const groupByHourAndAnimal = (details) => {
 
 export default function DateStatsPanel({ data, loading }) {
   const [expanded, setExpanded] = React.useState(false);
+  const locale = useClientLocale();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  if (loading) {
+  if (loading || !locale) {
     return (
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
@@ -125,7 +128,7 @@ export default function DateStatsPanel({ data, loading }) {
                 <DateRangeIcon color="primary" />
                 <Box sx={{ flexGrow: 1 }}>
                   <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                    {formatDate(item.ImageDate)}
+                    {formatDate(item.ImageDate, locale)}
                   </Typography>
                 </Box>
                 <Chip
@@ -137,7 +140,7 @@ export default function DateStatsPanel({ data, loading }) {
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              <StatDetailsTable details={groupedDetails} />
+              <StatDetailsTable details={groupedDetails} locale={locale} />
             </AccordionDetails>
           </Accordion>
         );

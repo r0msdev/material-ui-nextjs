@@ -7,18 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
-
-// Animal color mapping for visual distinction
-const getAnimalColor = (animal) => {
-  const colorMap = {
-    fox: '#ff6f00',
-    wildboar: '#795548',
-  };
-  return colorMap[animal?.toLowerCase()] || '#757575';
-};
+import { getAnimalColor } from '@/utils/animalColors';
 
 // Format time from ISO string
-const formatTime = (timeStr) => {
+const formatTime = (timeStr, locale) => {
   if (!timeStr) return 'N/A';
   
   try {
@@ -35,7 +27,7 @@ const formatTime = (timeStr) => {
     
     // Handle full ISO timestamp
     const date = new Date(timeStr);
-    return date.toLocaleTimeString('en-US', { 
+    return date.toLocaleTimeString(locale, { 
       hour: '2-digit', 
       minute: '2-digit',
       second: '2-digit',
@@ -46,7 +38,7 @@ const formatTime = (timeStr) => {
   }
 };
 
-export default function StatDetailsTable({ details }) {
+export default function StatDetailsTable({ details, locale }) {
   if (!details || details.length === 0) {
     return (
       <Paper sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
@@ -73,7 +65,7 @@ export default function StatDetailsTable({ details }) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {formatTime(detail.ImageDate)}
+                {formatTime(detail.ImageDate, locale)}
               </TableCell>
               <TableCell>
                 <Chip

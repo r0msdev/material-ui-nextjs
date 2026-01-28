@@ -19,7 +19,11 @@ export async function GET() {
     const fileContents = await readFile(filePath, 'utf8');
     const data = JSON.parse(fileContents);
     
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        'Vary': 'Accept-Language',
+      },
+    });
   } catch (error) {
     console.error('Error fetching last seen stats:', error);
     return NextResponse.json(
