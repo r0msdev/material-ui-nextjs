@@ -1,5 +1,5 @@
 {
-	"servers": {		
+	"servers": {
 		"microsoft/playwright-mcp": {
 			"type": "stdio",
 			"command": "npx",
@@ -13,8 +13,13 @@
 			"type": "stdio",
 			"command": "npx",
 			"args": [
-				"-y", 
-				"@mui/mcp@latest"]
+				"-y",
+				"@mui/mcp@latest"
+			]
+		},
+		"Vercel": {
+			"url": "https://mcp.vercel.com",
+			"type": "http"
 		}
 	},
 	"inputs": []
